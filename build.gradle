@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.4'
+}
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
+repositories {
+    mavenCentral()
+}
+
+tasks.named('wrapper') {
+    gradleVersion = '6.5.1'
+}
+
+dependencies {
+    implementation group: 'org.testng', name: 'testng', version: '7.0.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+test {
+    useTestNG() {
+        useDefaultListeners = false
+        testName "UnitTest"
+        suiteName "UnitTestSuite"
+    }
+}
+
+bootRun {
+    main = 'example.Application'
+    classpath sourceSets.main.runtimeClasspath
+}
